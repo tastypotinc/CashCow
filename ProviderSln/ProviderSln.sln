@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashCow.Provider", "CashCow.Provider\CashCow.Provider.csproj", "{2E9C795E-C2AB-4AC1-AF18-4E201900E355}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashCow.ProviderInterface", "CashCow.ProviderInterface\CashCow.ProviderInterface.csproj", "{EB99D069-79EB-4A38-8FE3-F205009D6A45}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2E9C795E-C2AB-4AC1-AF18-4E201900E355}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E9C795E-C2AB-4AC1-AF18-4E201900E355}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E9C795E-C2AB-4AC1-AF18-4E201900E355}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E9C795E-C2AB-4AC1-AF18-4E201900E355}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB99D069-79EB-4A38-8FE3-F205009D6A45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB99D069-79EB-4A38-8FE3-F205009D6A45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB99D069-79EB-4A38-8FE3-F205009D6A45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB99D069-79EB-4A38-8FE3-F205009D6A45}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

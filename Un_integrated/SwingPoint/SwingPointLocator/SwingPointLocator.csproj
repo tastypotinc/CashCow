@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D0E6E3A0-A510-477B-B51C-369E56A20560}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SwingPointLocator</RootNamespace>
+    <AssemblyName>SwingPointLocator</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Classes\SwingPointLocatorService.cs" />
+    <Compile Include="Entities\StockPriceData.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\IStockPriceDataRepository.cs" />
+    <Compile Include="Repositories\StockPriceDataRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\Downloads\500010.csv" />
+    <None Include="Data\Downloads\500023.csv" />
+    <None Include="Data\Downloads\500031.csv" />
+    <None Include="Data\Downloads\500042.csv" />
+    <None Include="Data\Downloads\500043.csv" />
+    <None Include="Data\Downloads\500048.csv" />
+    <None Include="Data\Downloads\500049.csv" />
+    <None Include="Data\Downloads\500067.csv" />
+    <None Include="Data\Downloads\500092.csv" />
+    <None Include="Data\Downloads\500093.csv" />
+    <None Include="Data\Downloads\500103.csv" />
+    <None Include="Data\Downloads\500112.csv" />
+    <None Include="Data\Downloads\500133.csv" />
+    <None Include="Data\Downloads\500150.csv" />
+    <None Include="Data\Downloads\500180.csv" />
+    <None Include="Data\Downloads\500187.csv" />
+    <None Include="Data\Downloads\500209.csv" />
+    <None Include="Data\Downloads\500210.csv" />
+    <None Include="Data\Downloads\500213.csv" />
+    <None Include="Data\Downloads\500215.csv" />
+    <None Include="Data\Downloads\500249.csv" />
+    <None Include="Data\Downloads\500252.csv" />
+    <None Include="Data\Downloads\500253.csv" />
+    <None Include="Data\Downloads\500300.csv" />
+    <None Include="Data\Downloads\500325.csv" />
+    <None Include="Data\Downloads\500355.csv" />
+    <None Include="Data\Downloads\500387.csv" />
+    <None Include="Data\Downloads\500403.csv" />
+    <None Include="Data\Downloads\500407.csv" />
+    <None Include="Data\Downloads\500411.csv" />
+    <None Include="Data\Downloads\500413.csv" />
+    <None Include="Data\Downloads\500469.csv" />
+    <None Include="Data\Downloads\500472.csv" />
+    <None Include="Data\Downloads\500510.csv" />
+    <None Include="Data\Downloads\500520.csv" />
+    <None Include="Data\Downloads\500530.csv" />
+    <None Include="Data\Downloads\500550.csv" />
+    <None Include="Data\Downloads\500690.csv" />
+    <None Include="Data\Downloads\500770.csv" />
+    <None Include="Data\Downloads\500800.csv" />
+    <None Include="Data\Downloads\500850.csv" />
+    <None Include="Data\Downloads\500870.csv" />
+    <None Include="Data\Downloads\501455.csv" />
+    <None Include="Data\Downloads\502742.csv" />
+    <None Include="Data\Downloads\503960.csv" />
+    <None Include="Data\Downloads\505283.csv" />
+    <None Include="Data\Downloads\505790.csv" />
+    <None Include="Data\Downloads\505885.csv" />
+    <None Include="Data\Downloads\505890.csv" />
+    <None Include="Data\Downloads\506076.csv" />
+    <None Include="Data\Downloads\506222.csv" />
+    <None Include="Data\Downloads\506285.csv" />
+    <None Include="Data\Downloads\506390.csv" />
+    <None Include="Data\Downloads\508906.csv" />
+    <None Include="Data\Downloads\509820.csv" />
+    <None Include="Data\Downloads\513250.csv" />
+    <None Include="Data\Downloads\513375.csv" />
+    <None Include="Data\Downloads\517041.csv" />
+    <None Include="Data\Downloads\517174.csv" />
+    <None Include="Data\Downloads\520113.csv" />
+    <None Include="Data\Downloads\522034.csv" />
+    <None Include="Data\Downloads\522064.csv" />
+    <None Include="Data\Downloads\522217.csv" />
+    <None Include="Data\Downloads\522263.csv" />
+    <None Include="Data\Downloads\522287.csv" />
+    <None Include="Data\Downloads\523319.csv" />
+    <None Include="Data\Downloads\523395.csv" />
+    <None Include="Data\Downloads\523477.csv" />
+    <None Include="Data\Downloads\524084.csv" />
+    <None Include="Data\Downloads\524735.csv" />
+    <None Include="Data\Downloads\526612.csv" />
+    <None Include="Data\Downloads\526861.csv" />
+    <None Include="Data\Downloads\530381.csv" />
+    <None Include="Data\Downloads\530431.csv" />
+    <None Include="Data\Downloads\530743.csv" />
+    <None Include="Data\Downloads\531344.csv" />
+    <None Include="Data\Downloads\531807.csv" />
+    <None Include="Data\Downloads\532133.csv" />
+    <None Include="Data\Downloads\532155.csv" />
+    <None Include="Data\Downloads\532178.csv" />
+    <None Include="Data\Downloads\532209.csv" />
+    <None Include="Data\Downloads\532218.csv" />
+    <None Include="Data\Downloads\532240.csv" />
+    <None Include="Data\Downloads\532281.csv" />
+    <None Include="Data\Downloads\532343.csv" />
+    <None Include="Data\Downloads\532400.csv" />
+    <None Include="Data\Downloads\532424.csv" />
+    <None Include="Data\Downloads\532466.csv" />
+    <None Include="Data\Downloads\532500.csv" />
+    <None Include="Data\Downloads\532540.csv" />
+    <None Include="Data\Downloads\532628.csv" />
+    <None Include="Data\Downloads\532629.csv" />
+    <None Include="Data\Downloads\532659.csv" />
+    <None Include="Data\Downloads\532662.csv" />
+    <None Include="Data\Downloads\532702.csv" />
+    <None Include="Data\Downloads\532705.csv" />
+    <None Include="Data\Downloads\532830.csv" />
+    <None Include="Data\Downloads\532835.csv" />
+    <None Include="Data\Downloads\532921.csv" />
+    <None Include="Data\Downloads\532950.csv" />
+    <None Include="Data\Downloads\532953.csv" />
+    <None Include="Data\Downloads\533023.csv" />
+    <None Include="Data\Downloads\533177.csv" />
+    <None Include="Data\Downloads\533269.csv" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data\SwingPoint\" />
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,84 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashCow.Web", "CashCow.Web\CashCow.Web.csproj", "{DDDE492A-F504-4C49-BDB1-FD536B8EC6DE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{6A9274F6-AB81-437D-8334-E52DB0694DC5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Provider", "Provider", "{5CA54D99-E4A9-4546-88FC-9C3758FF1F29}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Entity", "Entity", "{87332DFA-E2E9-4CB4-B3CE-C170E8B04A5A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashCow.BusinessInterface", "..\BusinessSln\CashCow.BusinessInterface\CashCow.BusinessInterface.csproj", "{F7D53712-4621-491B-882C-971E7B7FC592}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashCow.Business", "..\BusinessSln\CashCow.Business\CashCow.Business.csproj", "{6AD809C4-D509-4622-A45D-48CD23BFDD67}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashCow.Entity", "..\EntitySln\CashCow.Entity\CashCow.Entity.csproj", "{02AC39C8-7B40-4774-9DE6-C937619FC53E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashCow.ProviderInterface", "..\ProviderSln\CashCow.ProviderInterface\CashCow.ProviderInterface.csproj", "{EB99D069-79EB-4A38-8FE3-F205009D6A45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashCow.Provider", "..\ProviderSln\CashCow.Provider\CashCow.Provider.csproj", "{2E9C795E-C2AB-4AC1-AF18-4E201900E355}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApplicationBlocks", "ApplicationBlocks", "{8A4A93D9-099F-45AD-BEB8-9813D4A44E93}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashCow.Grid", "..\ApplicationBlocks\CashCow.Grid\CashCow.Grid.csproj", "{0D011133-B6C5-472B-86C5-CEA6C44D50F6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utilities", "Utilities", "{F4EDB7CE-F4C5-49FC-A16C-F094A7563F51}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helpers", "..\Utilities\Helpers\Helpers.csproj", "{5E4AC86B-88BA-4F00-B26D-C96E28089131}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DDDE492A-F504-4C49-BDB1-FD536B8EC6DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDDE492A-F504-4C49-BDB1-FD536B8EC6DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDDE492A-F504-4C49-BDB1-FD536B8EC6DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDDE492A-F504-4C49-BDB1-FD536B8EC6DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7D53712-4621-491B-882C-971E7B7FC592}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7D53712-4621-491B-882C-971E7B7FC592}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7D53712-4621-491B-882C-971E7B7FC592}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7D53712-4621-491B-882C-971E7B7FC592}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AD809C4-D509-4622-A45D-48CD23BFDD67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AD809C4-D509-4622-A45D-48CD23BFDD67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AD809C4-D509-4622-A45D-48CD23BFDD67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AD809C4-D509-4622-A45D-48CD23BFDD67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02AC39C8-7B40-4774-9DE6-C937619FC53E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02AC39C8-7B40-4774-9DE6-C937619FC53E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02AC39C8-7B40-4774-9DE6-C937619FC53E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02AC39C8-7B40-4774-9DE6-C937619FC53E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB99D069-79EB-4A38-8FE3-F205009D6A45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB99D069-79EB-4A38-8FE3-F205009D6A45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB99D069-79EB-4A38-8FE3-F205009D6A45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB99D069-79EB-4A38-8FE3-F205009D6A45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E9C795E-C2AB-4AC1-AF18-4E201900E355}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E9C795E-C2AB-4AC1-AF18-4E201900E355}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E9C795E-C2AB-4AC1-AF18-4E201900E355}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E9C795E-C2AB-4AC1-AF18-4E201900E355}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D011133-B6C5-472B-86C5-CEA6C44D50F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D011133-B6C5-472B-86C5-CEA6C44D50F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D011133-B6C5-472B-86C5-CEA6C44D50F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D011133-B6C5-472B-86C5-CEA6C44D50F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E4AC86B-88BA-4F00-B26D-C96E28089131}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E4AC86B-88BA-4F00-B26D-C96E28089131}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E4AC86B-88BA-4F00-B26D-C96E28089131}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E4AC86B-88BA-4F00-B26D-C96E28089131}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F7D53712-4621-491B-882C-971E7B7FC592} = {6A9274F6-AB81-437D-8334-E52DB0694DC5}
+		{6AD809C4-D509-4622-A45D-48CD23BFDD67} = {6A9274F6-AB81-437D-8334-E52DB0694DC5}
+		{EB99D069-79EB-4A38-8FE3-F205009D6A45} = {5CA54D99-E4A9-4546-88FC-9C3758FF1F29}
+		{2E9C795E-C2AB-4AC1-AF18-4E201900E355} = {5CA54D99-E4A9-4546-88FC-9C3758FF1F29}
+		{02AC39C8-7B40-4774-9DE6-C937619FC53E} = {87332DFA-E2E9-4CB4-B3CE-C170E8B04A5A}
+		{0D011133-B6C5-472B-86C5-CEA6C44D50F6} = {8A4A93D9-099F-45AD-BEB8-9813D4A44E93}
+		{5E4AC86B-88BA-4F00-B26D-C96E28089131} = {F4EDB7CE-F4C5-49FC-A16C-F094A7563F51}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35;packages\Unity.Interception.2.1.505.0\lib\NET35;packages\EnterpriseLibrary.Common.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.Data.5.0.505.0\lib\NET35
+	EndGlobalSection
+EndGlobal

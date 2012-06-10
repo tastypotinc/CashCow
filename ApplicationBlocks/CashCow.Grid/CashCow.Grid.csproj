@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0D011133-B6C5-472B-86C5-CEA6C44D50F6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CashCow.Grid</RootNamespace>
+    <AssemblyName>CashCow.Grid</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Helper\GridModelBuilder.cs" />
+    <Compile Include="Models\Grid\Grid.cs" />
+    <Compile Include="Models\Grid\GridBodyModel.cs" />
+    <Compile Include="Models\Grid\GridCommonProperties.cs" />
+    <Compile Include="Models\Grid\GridColumnModel.cs" />
+    <Compile Include="Models\Grid\GridContext.cs" />
+    <Compile Include="Models\Grid\GridHeaderCellModel.cs" />
+    <Compile Include="Models\Grid\GridHeaderModel.cs" />
+    <Compile Include="Models\Grid\GridLinkModel.cs" />
+    <Compile Include="Models\Grid\GridModel.cs" />
+    <Compile Include="Models\Grid\GridModelBuilderEntity.cs" />
+    <Compile Include="Models\Grid\GridPagerModel.cs" />
+    <Compile Include="Models\Grid\GridRowCellModel.cs" />
+    <Compile Include="Models\Grid\GridRowModel.cs" />
+    <Compile Include="Models\GridSearchInfo.cs" />
+    <Compile Include="Models\GridSortInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Images\" />
+    <Folder Include="Views\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\EntitySln\CashCow.Entity\CashCow.Entity.csproj">
+      <Project>{02AC39C8-7B40-4774-9DE6-C937619FC53E}</Project>
+      <Name>CashCow.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Utilities\Helpers\Helpers.csproj">
+      <Project>{5E4AC86B-88BA-4F00-B26D-C96E28089131}</Project>
+      <Name>Helpers</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
