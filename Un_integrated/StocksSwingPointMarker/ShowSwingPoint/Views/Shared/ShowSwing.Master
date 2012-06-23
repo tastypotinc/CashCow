@@ -1,0 +1,32 @@
+﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /></title>
+    <script src='<%: Url.Content("~/Scripts/jquery-1.4.1.js") %>' language="javascript" type="text/javascript"></script>
+    <script src='<%: Url.Content("~/Scripts/jquery.validate.js") %>' language="javascript" type="text/javascript"></script>
+    <script src='<%: Url.Content("~/Scripts/MicrosoftAjax.debug.js") %>' language="javascript" type="text/javascript"></script>
+    <script src='<%: Url.Content("~/Scripts/MicrosoftMvcValidation.debug.js") %>' language="javascript" type="text/javascript"></script>
+    <script src='<%: Url.Content("~/Scripts/SwingPointAjaxHandler.js") %>' language="javascript" type="text/javascript"></script>
+    <script src='<%: Url.Content("~/Scripts/ChartPlotter.js") %>' language="javascript" type="text/javascript"></script>    
+    <script src='<%: Url.Content("~/Scripts/jqPlot/jquery.jqplot.css") %>' language="javascript" type="text/javascript"></script>
+    <!--[if lt IE 9]><script src='<%: Url.Content("~/Scripts/jqPlot/excanvas.js") %>' language="javascript" type="text/javascript"></script><![endif]-->
+    <script src='<%: Url.Content("~/Scripts/jqPlot/jquery.jqplot.js") %>' language="javascript" type="text/javascript"></script>    
+    <script src='<%: Url.Content("~/Scripts/jqPlot/plugins/jqplot.dateAxisRenderer.js") %>' language="javascript" type="text/javascript"></script>
+    <script src='<%: Url.Content("~/Scripts/jqPlot/plugins/jqplot.ohlcRenderer.js") %>' language="javascript" type="text/javascript"></script>
+    <script src='<%: Url.Content("~/Scripts/jqPlot/plugins/jqplot.highlighter.js") %>' language="javascript" type="text/javascript"></script>
+    <script src='<%: Url.Content("~/Scripts/jqPlot/plugins/jqplot.pointLabels.js") %>' language="javascript" type="text/javascript"></script>
+    
+    <asp:ContentPlaceHolder ID="Header" runat="server"></asp:ContentPlaceHolder>
+
+</head>
+<body>
+    <div>
+        <asp:ContentPlaceHolder ID="MainContent" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </div>
+</body>
+</html>

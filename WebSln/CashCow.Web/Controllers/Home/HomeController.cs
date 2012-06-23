@@ -20,7 +20,7 @@ namespace CashCow.Web.Controllers.Home
         [HttpGet]
         public ActionResult Index()
         {
-            return Redirect("WatchList");
+            return Redirect("~/WatchList");
         }
 
         #endregion Public Methods
