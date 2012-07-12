@@ -1,7 +1,7 @@
 USE [CashCow]
 GO
 
-/****** Object:  StoredProcedure [dbo].[WatchList_Search]    Script Date: 06/23/2012 14:21:25 ******/
+/****** Object:  StoredProcedure [dbo].[WatchList_Search]    Script Date: 07/09/2012 22:18:58 ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[WatchList_Search]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [dbo].[WatchList_Search]
 GO
@@ -9,12 +9,13 @@ GO
 USE [CashCow]
 GO
 
-/****** Object:  StoredProcedure [dbo].[WatchList_Search]    Script Date: 06/23/2012 14:21:25 ******/
+/****** Object:  StoredProcedure [dbo].[WatchList_Search]    Script Date: 07/09/2012 22:18:58 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 CREATE PROCEDURE [dbo].[WatchList_Search]              
 @WatchListID INT,
@@ -81,15 +82,17 @@ BEGIN
 	                  
 	CREATE TABLE #TempSearchCriteria(              
 	SearchOn VARCHAR(50),              
-	SearchValue NVARCHAR(200)              
+	SearchValueOne NVARCHAR(200),
+	SearchValueTwo NVARCHAR(200)
 	);              
               
 	-- Insert data into #TempSearchCriteria table.              
 	INSERT INTO #TempSearchCriteria
-		(SearchOn, SearchValue)              
+		(SearchOn, SearchValueOne, SearchValueTwo)
 		SELECT              
-			SearchCriteria.Criteria.value('@SearchOn','VARCHAR(50)'),              
-			SearchCriteria.Criteria.value('@SearchValue','VARCHAR(200)')              
+			SearchCriteria.Criteria.value('@SearchOn','NVARCHAR(50)'),              
+			SearchCriteria.Criteria.value('@SearchValueOne','NVARCHAR(200)'),
+			SearchCriteria.Criteria.value('@SearchValueTwo','NVARCHAR(200)')
 		FROM
 			@SearchCriteria.nodes('/SearchCriteria/Criteria') as SearchCriteria(Criteria)              
               
@@ -149,17 +152,17 @@ BEGIN
 						WHERE
 							1 =  
 							CASE TC.SearchOn  
-								WHEN 'BseSymbol' THEN CASE WHEN WL.BseSymbol LIKE '%' + TC.SearchValue + '%' THEN 1 END
-								WHEN 'NseSymbol' THEN CASE WHEN WL.NseSymbol LIKE '%' + TC.SearchValue + '%' THEN 1 END
-								WHEN 'Name' THEN CASE WHEN WL.Name LIKE '%' + TC.SearchValue + '%' THEN 1 END  
-								WHEN 'AltNameOne' THEN CASE WHEN WL.AltNameOne LIKE '%' + TC.SearchValue + '%' THEN 1 END
-								WHEN 'AltNameTwo' THEN CASE WHEN WL.AltNameTwo LIKE '%' + TC.SearchValue + '%' THEN 1 END
-								WHEN 'AltNameThree' THEN CASE WHEN WL.AltNameThree LIKE '%' + TC.SearchValue + '%' THEN 1 END
-								WHEN 'TempName' THEN CASE WHEN WL.TempName LIKE '%' + TC.SearchValue + '%' THEN 1 END
-								WHEN 'IsActive' THEN CASE WHEN TC.SearchValue = CAST(WL.IsActive AS NVARCHAR(200)) THEN 1 END
-								WHEN 'AlertRequired' THEN CASE WHEN TC.SearchValue = CAST(WL.AlertRequired AS NVARCHAR(200)) THEN 1 END
-								WHEN 'ModifiedOn' THEN CASE WHEN TC.SearchValue = CAST(WL.ModifiedOn AS NVARCHAR(200)) THEN 1 END
-								WHEN 'CreatedOn' THEN CASE WHEN TC.SearchValue = CAST(WL.CreatedOn AS NVARCHAR(200)) THEN 1 END
+								WHEN 'BseSymbol' THEN CASE WHEN WL.BseSymbol LIKE '%' + TC.SearchValueOne + '%' THEN 1 END
+								WHEN 'NseSymbol' THEN CASE WHEN WL.NseSymbol LIKE '%' + TC.SearchValueOne + '%' THEN 1 END
+								WHEN 'Name' THEN CASE WHEN WL.Name LIKE '%' + TC.SearchValueOne + '%' THEN 1 END  
+								WHEN 'AltNameOne' THEN CASE WHEN WL.AltNameOne LIKE '%' + TC.SearchValueOne + '%' THEN 1 END
+								WHEN 'AltNameTwo' THEN CASE WHEN WL.AltNameTwo LIKE '%' + TC.SearchValueOne + '%' THEN 1 END
+								WHEN 'AltNameThree' THEN CASE WHEN WL.AltNameThree LIKE '%' + TC.SearchValueOne + '%' THEN 1 END
+								WHEN 'TempName' THEN CASE WHEN WL.TempName LIKE '%' + TC.SearchValueOne + '%' THEN 1 END
+								WHEN 'IsActive' THEN CASE WHEN TC.SearchValueOne = CAST(WL.IsActive AS NVARCHAR(200)) THEN 1 END
+								WHEN 'AlertRequired' THEN CASE WHEN TC.SearchValueOne = CAST(WL.AlertRequired AS NVARCHAR(200)) THEN 1 END
+								WHEN 'ModifiedOn' THEN CASE WHEN WL.ModifiedOn BETWEEN CAST(TC.SearchValueOne AS DATETIME) AND CAST(TC.SearchValueTwo AS DATETIME) THEN 1 END
+								WHEN 'CreatedOn' THEN CASE WHEN WL.CreatedOn BETWEEN CAST(TC.SearchValueOne AS DATETIME) AND CAST(TC.SearchValueTwo AS DATETIME)THEN 1 END
 							END)
 					THEN              
 						1              
@@ -175,17 +178,17 @@ BEGIN
 						WHERE
 							1 =  
 							CASE TC.SearchOn  
-								WHEN 'BseSymbol' THEN CASE WHEN WL.BseSymbol LIKE '%' + TC.SearchValue + '%' THEN 1 END
-								WHEN 'NseSymbol' THEN CASE WHEN WL.NseSymbol LIKE '%' + TC.SearchValue + '%' THEN 1 END
-								WHEN 'Name' THEN CASE WHEN WL.Name LIKE '%' + TC.SearchValue + '%' THEN 1 END  
-								WHEN 'AltNameOne' THEN CASE WHEN WL.AltNameOne LIKE '%' + TC.SearchValue + '%' THEN 1 END
-								WHEN 'AltNameTwo' THEN CASE WHEN WL.AltNameTwo LIKE '%' + TC.SearchValue + '%' THEN 1 END
-								WHEN 'AltNameThree' THEN CASE WHEN WL.AltNameThree LIKE '%' + TC.SearchValue + '%' THEN 1 END
-								WHEN 'TempName' THEN CASE WHEN WL.TempName LIKE '%' + TC.SearchValue + '%'THEN 1 END
-								WHEN 'IsActive' THEN CASE WHEN TC.SearchValue = CAST(WL.IsActive AS NVARCHAR(200)) THEN 1 END
-								WHEN 'AlertRequired' THEN CASE WHEN TC.SearchValue = CAST(WL.AlertRequired AS NVARCHAR(200)) THEN 1 END
-								WHEN 'ModifiedOn' THEN CASE WHEN TC.SearchValue = CAST(WL.ModifiedOn AS NVARCHAR(200)) THEN 1 END
-								WHEN 'CreatedOn' THEN CASE WHEN TC.SearchValue = CAST(WL.CreatedOn AS NVARCHAR(200)) THEN 1 END
+								WHEN 'BseSymbol' THEN CASE WHEN WL.BseSymbol LIKE '%' + TC.SearchValueOne + '%' THEN 1 END
+								WHEN 'NseSymbol' THEN CASE WHEN WL.NseSymbol LIKE '%' + TC.SearchValueOne + '%' THEN 1 END
+								WHEN 'Name' THEN CASE WHEN WL.Name LIKE '%' + TC.SearchValueOne + '%' THEN 1 END  
+								WHEN 'AltNameOne' THEN CASE WHEN WL.AltNameOne LIKE '%' + TC.SearchValueOne + '%' THEN 1 END
+								WHEN 'AltNameTwo' THEN CASE WHEN WL.AltNameTwo LIKE '%' + TC.SearchValueOne + '%' THEN 1 END
+								WHEN 'AltNameThree' THEN CASE WHEN WL.AltNameThree LIKE '%' + TC.SearchValueOne + '%' THEN 1 END
+								WHEN 'TempName' THEN CASE WHEN WL.TempName LIKE '%' + TC.SearchValueOne + '%'THEN 1 END
+								WHEN 'IsActive' THEN CASE WHEN TC.SearchValueOne = CAST(WL.IsActive AS NVARCHAR(200)) THEN 1 END
+								WHEN 'AlertRequired' THEN CASE WHEN TC.SearchValueOne = CAST(WL.AlertRequired AS NVARCHAR(200)) THEN 1 END
+								WHEN 'ModifiedOn' THEN CASE WHEN WL.ModifiedOn BETWEEN CAST(TC.SearchValueOne AS DATETIME) AND CAST(TC.SearchValueTwo AS DATETIME) THEN 1 END
+								WHEN 'CreatedOn' THEN CASE WHEN WL.CreatedOn BETWEEN CAST(TC.SearchValueOne AS DATETIME) AND CAST(TC.SearchValueTwo AS DATETIME)THEN 1 END
 							END)
 					THEN              
 						1              
@@ -201,17 +204,17 @@ BEGIN
 						WHERE
 							1 =  
 							CASE TC.SearchOn  
-								WHEN 'BseSymbol' THEN CASE WHEN WL.BseSymbol LIKE '%' + TC.SearchValue + '%' THEN 1 END
-								WHEN 'NseSymbol' THEN CASE WHEN WL.NseSymbol LIKE '%' + TC.SearchValue + '%' THEN 1 END
-								WHEN 'Name' THEN CASE WHEN WL.Name LIKE '%' + TC.SearchValue + '%' THEN 1 END  
-								WHEN 'AltNameOne' THEN CASE WHEN WL.AltNameOne LIKE '%' + TC.SearchValue + '%' THEN 1 END
-								WHEN 'AltNameTwo' THEN CASE WHEN WL.AltNameTwo LIKE '%' + TC.SearchValue + '%' THEN 1 END
-								WHEN 'AltNameThree' THEN CASE WHEN WL.AltNameThree LIKE '%' + TC.SearchValue + '%' THEN 1 END
-								WHEN 'TempName' THEN CASE WHEN WL.TempName LIKE '%' + TC.SearchValue + '%' THEN 1 END
-								WHEN 'IsActive' THEN CASE WHEN TC.SearchValue = CAST(WL.IsActive AS NVARCHAR(200)) THEN 1 END
-								WHEN 'AlertRequired' THEN CASE WHEN TC.SearchValue = CAST(WL.AlertRequired AS NVARCHAR(200)) THEN 1 END
-								WHEN 'ModifiedOn' THEN CASE WHEN TC.SearchValue = CAST(WL.ModifiedOn AS NVARCHAR(200)) THEN 1 END
-								WHEN 'CreatedOn' THEN CASE WHEN TC.SearchValue = CAST(WL.CreatedOn AS NVARCHAR(200)) THEN 1 END
+								WHEN 'BseSymbol' THEN CASE WHEN WL.BseSymbol LIKE '%' + TC.SearchValueOne + '%' THEN 1 END
+								WHEN 'NseSymbol' THEN CASE WHEN WL.NseSymbol LIKE '%' + TC.SearchValueOne + '%' THEN 1 END
+								WHEN 'Name' THEN CASE WHEN WL.Name LIKE '%' + TC.SearchValueOne + '%' THEN 1 END  
+								WHEN 'AltNameOne' THEN CASE WHEN WL.AltNameOne LIKE '%' + TC.SearchValueOne + '%' THEN 1 END
+								WHEN 'AltNameTwo' THEN CASE WHEN WL.AltNameTwo LIKE '%' + TC.SearchValueOne + '%' THEN 1 END
+								WHEN 'AltNameThree' THEN CASE WHEN WL.AltNameThree LIKE '%' + TC.SearchValueOne + '%' THEN 1 END
+								WHEN 'TempName' THEN CASE WHEN WL.TempName LIKE '%' + TC.SearchValueOne + '%' THEN 1 END
+								WHEN 'IsActive' THEN CASE WHEN TC.SearchValueOne  = CAST(WL.IsActive AS NVARCHAR(200)) THEN 1 END
+								WHEN 'AlertRequired' THEN CASE WHEN TC.SearchValueOne = CAST(WL.AlertRequired AS NVARCHAR(200)) THEN 1 END
+								WHEN 'ModifiedOn' THEN CASE WHEN WL.ModifiedOn BETWEEN CAST(TC.SearchValueOne AS DATETIME) AND CAST(TC.SearchValueTwo AS DATETIME) THEN 1 END
+								WHEN 'CreatedOn' THEN CASE WHEN WL.CreatedOn BETWEEN CAST(TC.SearchValueOne AS DATETIME) AND CAST(TC.SearchValueTwo AS DATETIME)THEN 1 END
 							END)
 					THEN      
 						1      
@@ -227,17 +230,17 @@ BEGIN
 						WHERE
 							1 =  
 							CASE TC.SearchOn  
-								WHEN 'BseSymbol' THEN CASE WHEN WL.BseSymbol LIKE '%' + TC.SearchValue + '%' THEN 1 END
-								WHEN 'NseSymbol' THEN CASE WHEN WL.NseSymbol LIKE '%' + TC.SearchValue + '%' THEN 1 END
-								WHEN 'Name' THEN CASE WHEN WL.Name LIKE '%' + TC.SearchValue + '%' THEN 1 END  
-								WHEN 'AltNameOne' THEN CASE WHEN WL.AltNameOne LIKE '%' + TC.SearchValue + '%' THEN 1 END
-								WHEN 'AltNameTwo' THEN CASE WHEN WL.AltNameTwo LIKE '%' + TC.SearchValue + '%' THEN 1 END
-								WHEN 'AltNameThree' THEN CASE WHEN WL.AltNameThree LIKE '%' + TC.SearchValue + '%' THEN 1 END
-								WHEN 'TempName' THEN CASE WHEN WL.TempName LIKE '%' + TC.SearchValue + '%' THEN 1 END
-								WHEN 'IsActive' THEN CASE WHEN TC.SearchValue = CAST(WL.IsActive AS NVARCHAR(200)) THEN 1 END
-								WHEN 'AlertRequired' THEN CASE WHEN TC.SearchValue = CAST(WL.AlertRequired AS NVARCHAR(200)) THEN 1 END
-								WHEN 'ModifiedOn' THEN CASE WHEN TC.SearchValue = CAST(WL.ModifiedOn AS NVARCHAR(200)) THEN 1 END
-								WHEN 'CreatedOn' THEN CASE WHEN TC.SearchValue = CAST(WL.CreatedOn AS NVARCHAR(200)) THEN 1 END
+								WHEN 'BseSymbol' THEN CASE WHEN WL.BseSymbol LIKE '%' + TC.SearchValueOne + '%' THEN 1 END
+								WHEN 'NseSymbol' THEN CASE WHEN WL.NseSymbol LIKE '%' + TC.SearchValueOne + '%' THEN 1 END
+								WHEN 'Name' THEN CASE WHEN WL.Name LIKE '%' + TC.SearchValueOne + '%' THEN 1 END  
+								WHEN 'AltNameOne' THEN CASE WHEN WL.AltNameOne LIKE '%' + TC.SearchValueOne + '%' THEN 1 END
+								WHEN 'AltNameTwo' THEN CASE WHEN WL.AltNameTwo LIKE '%' + TC.SearchValueOne + '%' THEN 1 END
+								WHEN 'AltNameThree' THEN CASE WHEN WL.AltNameThree LIKE '%' + TC.SearchValueOne + '%' THEN 1 END
+								WHEN 'TempName' THEN CASE WHEN WL.TempName LIKE '%' + TC.SearchValueOne + '%' THEN 1 END
+								WHEN 'IsActive' THEN CASE WHEN TC.SearchValueOne = CAST(WL.IsActive AS NVARCHAR(200)) THEN 1 END
+								WHEN 'AlertRequired' THEN CASE WHEN TC.SearchValueOne = CAST(WL.AlertRequired AS NVARCHAR(200)) THEN 1 END
+								WHEN 'ModifiedOn' THEN CASE WHEN WL.ModifiedOn BETWEEN CAST(TC.SearchValueOne AS DATETIME) AND CAST(TC.SearchValueTwo AS DATETIME) THEN 1 END
+								WHEN 'CreatedOn' THEN CASE WHEN WL.CreatedOn BETWEEN CAST(TC.SearchValueOne AS DATETIME) AND CAST(TC.SearchValueTwo AS DATETIME)THEN 1 END
 							END)
 					THEN              
 						1              
@@ -312,5 +315,6 @@ BEGIN
 	IF OBJECT_ID('tempdb..#TempSearchCriteria','U') IS NOT NULL                
 		DROP TABLE #TempSearchCriteria;             
 END 
+
 GO
 

@@ -96,7 +96,7 @@ namespace StocksSwingPointMarker
 
                     foreach (var stockPriceRow in _input.DetailsList)
                     {
-                        var detailLine = string.Format("{0:yyyyMMdd},{1:0.00},{2:0.00},{3:0.00},{4:0.00},{5, 10},{6}", stockPriceRow.PriceDate.ToString("yyyyMMdd"), stockPriceRow.OpenPrice, stockPriceRow.HighPrice, stockPriceRow.LowPrice, stockPriceRow.ClosePrice, stockPriceRow.ShareVolume, stockPriceRow.SwingPoint);
+                        var detailLine = string.Format("{0:MM/dd/yyyy},{1:0.00},{2:0.00},{3:0.00},{4:0.00},{5, 10},{6}", stockPriceRow.PriceDate.ToString("MM/dd/yyyy"), stockPriceRow.OpenPrice, stockPriceRow.HighPrice, stockPriceRow.LowPrice, stockPriceRow.ClosePrice, stockPriceRow.ShareVolume, stockPriceRow.SwingPoint);
                         sw.WriteLine(detailLine);                        
                     }
 

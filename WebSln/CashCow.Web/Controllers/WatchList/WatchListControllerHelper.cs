@@ -1,8 +1,8 @@
 ﻿#region Namespaces
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 using CashCow.Business;
 using CashCow.BusinessInterface;
 using CashCow.Entity;
@@ -13,7 +13,6 @@ using Helpers;
 
 #endregion Namespaces
 
-
 namespace CashCow.Web.Controllers.WatchList
 {
     /// <summary>
@@ -22,6 +21,95 @@ namespace CashCow.Web.Controllers.WatchList
     public partial class WatchListController
     {
         #region Private Methods
+
+        /// <summary>
+        /// Method to convert the grid context search criteria list to search criteria for grid in XML format.
+        /// </summary>
+        /// <param name="searchCriteriaList">Name value pair list of search criteria from grid context.</param>
+        /// <returns>Search criteria string in XML format.
+        /// Format is <SearchCriteria><Criteria SearchOn="ColumnName" SearchValueOne="SearchStringStart" SearchValueTwo="SearchStringEnd" /></SearchCriteria></returns>
+        private string ConvertContextSearchCriteriaListToGridSearchCriteria(IList<KeyValuePair<string, string>> searchCriteriaList)
+        {
+            var xmlDoc = new XmlDocument();
+            var root = xmlDoc.CreateElement("SearchCriteria");
+            var tempRoot = xmlDoc.CreateElement("Temp");
+            XmlElement xmlElement;
+
+            foreach (var searchCriteria in searchCriteriaList)
+            {
+                xmlElement = xmlDoc.CreateElement("Criteria");
+                xmlElement.SetAttribute("SearchOn", searchCriteria.Key);
+                xmlElement.SetAttribute("SearchValueOne", searchCriteria.Value);
+                xmlElement.SetAttribute("SearchValueTwo", string.Empty);
+
+                // If Key has particular value, add it to temporary root element.
+                // They will be inserted into root element in a different way below.
+                if (searchCriteria.Key.Equals("CreatedOnStart") ||
+                    searchCriteria.Key.Equals("CreatedOnEnd") ||
+                    searchCriteria.Key.Equals("ModifiedOnStart") ||
+                    searchCriteria.Key.Equals("ModifiedOnEnd"))
+                {
+                    tempRoot.AppendChild(xmlElement);
+                }
+                else
+                {
+                    root.AppendChild(xmlElement);
+                }
+            }
+
+            XmlNode nodeOne;
+            XmlNode nodeTwo;
+
+            // Create search criteria for created date. Get CreatedOnStart and CreatedOnEnd nodes.
+            // Construct a single node, CreatedOn and put both values in it.
+            nodeOne = tempRoot.SelectSingleNode("Criteria[@SearchOn='CreatedOnStart']");
+            nodeTwo = tempRoot.SelectSingleNode("Criteria[@SearchOn='CreatedOnEnd']");
+            if(nodeOne != null && nodeTwo != null)
+            {
+                xmlElement = xmlDoc.CreateElement("Criteria");
+                xmlElement.SetAttribute("SearchOn", "CreatedOn");
+                xmlElement.SetAttribute("SearchValueOne", nodeOne.Attributes["SearchValueOne"].Value);
+                xmlElement.SetAttribute("SearchValueTwo", nodeTwo.Attributes["SearchValueOne"].Value);
+                root.AppendChild(xmlElement);
+            }
+
+            // Create search criteria for modified date. Get ModifiedOnStart and ModifiedOnEnd nodes.
+            // Construct a single node, ModifiedOn and put both values in it.
+            nodeOne = tempRoot.SelectSingleNode("Criteria[@SearchOn='ModifiedOnStart']");
+            nodeTwo = tempRoot.SelectSingleNode("Criteria[@SearchOn='ModifiedOnEnd']");
+            if (nodeOne != null && nodeTwo != null)
+            {
+                xmlElement = xmlDoc.CreateElement("Criteria");
+                xmlElement.SetAttribute("SearchOn", "ModifiedOn");
+                xmlElement.SetAttribute("SearchValueOne", nodeOne.Attributes["SearchValueOne"].Value);
+                xmlElement.SetAttribute("SearchValueTwo", nodeTwo.Attributes["SearchValueOne"].Value);
+                root.AppendChild(xmlElement);
+            }
+
+            xmlDoc.AppendChild(root);
+
+            return xmlDoc.InnerXml;
+        }
+
+        /// <summary>
+        /// Method to create GridSearchCriteriaEntity from grid context.
+        /// </summary>
+        /// <param name="gridContext">Grid context of the grid.</param>
+        /// <returns>GridSearchCriteriaEntity</returns>
+        public GridSearchCriteriaEntity CreateGridSearchCriteriaEntity(GridContext gridContext)
+        {
+            return new GridSearchCriteriaEntity
+            {
+                MaximumRows = gridContext.GridPager.PageSize,
+                SearchAgainst = gridContext.SearchInfo.SearchAgainstCriteria,
+                SearchCriteria = this.ConvertContextSearchCriteriaListToGridSearchCriteria(gridContext.SearchInfo.SearchCriteriaList),
+                SearchWithOr = gridContext.SearchInfo.SearchWithOr,
+                SortAscending = gridContext.SortInfo.SortAscending,
+                SortColumn = gridContext.SortInfo.SortOn,
+                StartRowIndex = gridContext.GridPager.StartRowIndex,
+                TextSearchKey = gridContext.SearchInfo.TextSearchKey
+            };
+        }
 
         /// <summary>
         /// Method to create search criteria name value pair list for watch list grid. Name has DB column name and value the search string.
@@ -59,10 +147,29 @@ namespace CashCow.Web.Controllers.WatchList
                 searchCriteriaListForWatchListGrid.Add(new KeyValuePair<string, string>("BseSymbol", watchListSearchModel.BseSymbol));
             }
 
-            if (!string.IsNullOrEmpty(watchListSearchModel.CreatedOn))
+            if (!string.IsNullOrEmpty(watchListSearchModel.CreatedOnStart))
             {
-                searchCriteriaListForWatchListGrid.Add(new KeyValuePair<string, string>("CreatedOn",
-                    DataFormatter.GetDateTimeInUtcFormat(Convert.ToDateTime(watchListSearchModel.CreatedOn)).ToString()));
+                searchCriteriaListForWatchListGrid.Add(new KeyValuePair<string, string>("CreatedOnStart",
+                    DataFormatter.GetDateTimeInUtcFormat(DataFormatter.FormatStringToDate(watchListSearchModel.CreatedOnStart)).ToString()));
+            }
+            else if (!string.IsNullOrEmpty(watchListSearchModel.CreatedOnEnd))
+            {
+                // If only end date is specified, start date will be begining of the end date i.e. 0 hr of end date.
+                searchCriteriaListForWatchListGrid.Add(new KeyValuePair<string, string>("CreatedOnStart",
+                    DataFormatter.GetDateTimeInUtcFormat(DataFormatter.FormatStringToDate(watchListSearchModel.CreatedOnEnd)).ToString()));
+            }
+
+            if (!string.IsNullOrEmpty(watchListSearchModel.CreatedOnEnd))
+            {
+                // End date will be end of end date i.e. 2400 hrs of end date or 0 hrs of next day to end date.
+                searchCriteriaListForWatchListGrid.Add(new KeyValuePair<string, string>("CreatedOnEnd",
+                    DataFormatter.GetDateTimeInUtcFormat(DataFormatter.FormatStringToDate(watchListSearchModel.CreatedOnEnd).Value.AddDays(1)).ToString()));
+            }
+            else if (!string.IsNullOrEmpty(watchListSearchModel.CreatedOnStart))
+            {
+                // If only start date is specified, end date will be end of start date i.e. 2400 hrs of start date or 0 hr of next day to start date.
+                searchCriteriaListForWatchListGrid.Add(new KeyValuePair<string, string>("CreatedOnEnd",
+                    DataFormatter.GetDateTimeInUtcFormat(DataFormatter.FormatStringToDate(watchListSearchModel.CreatedOnStart).Value.AddDays(1)).ToString()));
             }
 
             if (watchListSearchModel.IsActive != null)
@@ -71,10 +178,29 @@ namespace CashCow.Web.Controllers.WatchList
                     (bool)watchListSearchModel.IsActive ? "1" : "0"));
             }
 
-            if (!string.IsNullOrEmpty(watchListSearchModel.ModifiedOn))
+            if (!string.IsNullOrEmpty(watchListSearchModel.ModifiedOnStart))
             {
-                searchCriteriaListForWatchListGrid.Add(new KeyValuePair<string, string>("ModifiedOn",
-                     DataFormatter.GetDateTimeInUtcFormat(Convert.ToDateTime(watchListSearchModel.ModifiedOn)).ToString()));
+                searchCriteriaListForWatchListGrid.Add(new KeyValuePair<string, string>("ModifiedOnStart",
+                     DataFormatter.GetDateTimeInUtcFormat(DataFormatter.FormatStringToDate(watchListSearchModel.ModifiedOnStart)).ToString()));
+            }
+            else if (!string.IsNullOrEmpty(watchListSearchModel.ModifiedOnEnd))
+            {
+                // If only end date is specified, start date will be begining of the end date i.e. 0 hr of end date.
+                searchCriteriaListForWatchListGrid.Add(new KeyValuePair<string, string>("ModifiedOnStart",
+                     DataFormatter.GetDateTimeInUtcFormat(DataFormatter.FormatStringToDate(watchListSearchModel.ModifiedOnEnd)).ToString()));
+            }
+
+            if (!string.IsNullOrEmpty(watchListSearchModel.ModifiedOnEnd))
+            {
+                // End date will be end of end date i.e. 2400 hrs of end date or 0 hrs of next day to end date.
+                searchCriteriaListForWatchListGrid.Add(new KeyValuePair<string, string>("ModifiedOnEnd",
+                     DataFormatter.GetDateTimeInUtcFormat(DataFormatter.FormatStringToDate(watchListSearchModel.ModifiedOnEnd).Value.AddDays(1)).ToString()));
+            }
+            else if (!string.IsNullOrEmpty(watchListSearchModel.ModifiedOnStart))
+            {
+                // If only start date is specified, end date will be end of start date i.e. 2400 hrs of start date or 0 hr of next day to start date.
+                searchCriteriaListForWatchListGrid.Add(new KeyValuePair<string, string>("ModifiedOnEnd",
+                     DataFormatter.GetDateTimeInUtcFormat(DataFormatter.FormatStringToDate(watchListSearchModel.ModifiedOnStart).Value.AddDays(1)).ToString()));
             }
 
             if (!string.IsNullOrEmpty(watchListSearchModel.Name))
@@ -105,7 +231,7 @@ namespace CashCow.Web.Controllers.WatchList
             var gridModelBuilder = new GridModelBuilder();
 
             // Create grid search criteria from the grid context and retrieve list of watch list entities from the DB.
-            var gridSearchCriteria = gridModelBuilder.CreateGridSearchCriteriaEntity(gridContext);
+            var gridSearchCriteria = this.CreateGridSearchCriteriaEntity(gridContext);
 
             IWatchListBusiness iWatchListBusiness = new WatchListBusiness();
 

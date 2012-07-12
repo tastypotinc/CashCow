@@ -6,6 +6,7 @@ using CashCow.Grid.Models;
 using CashCow.Grid.Models.Grid;
 using CashCow.Web.Models.WatchList;
 using CashCow.Web.MvcHelpers;
+using Helpers;
 
 #endregion Namespaces
 
@@ -104,11 +105,11 @@ namespace CashCow.Web.Controllers.WatchList
             // Set the date of creation and modification.
             if(watchListModel.WatchListID > 0)
             {
-                watchListModel.ModifiedOn = DateTime.Now.ToString();
+                watchListModel.ModifiedOn = DataFormatter.FormatDateToString(DateTime.Now);
             }
             else
             {
-                watchListModel.CreatedOn = DateTime.Now.ToString();
+                watchListModel.CreatedOn = DataFormatter.FormatDateToString(DateTime.Now);
             }
             
             // Save the changes and return new grid model as JSON result if the save is successful.

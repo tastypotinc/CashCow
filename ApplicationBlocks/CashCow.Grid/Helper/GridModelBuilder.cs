@@ -2,8 +2,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml;
-using CashCow.Entity;
 using CashCow.Grid.Models;
 using CashCow.Grid.Models.Grid;
 using Helpers;
@@ -251,30 +249,6 @@ namespace CashCow.Grid.Helper
             return gridRowCellModel;
         }
 
-        /// <summary>
-        /// Method to convert the grid context search criteria list to search criteria for grid in XML format.
-        /// </summary>
-        /// <param name="searchCriteriaList">Name value pair list of search criteria from grid context.</param>
-        /// <returns>Search criteria string in XML format.
-        /// Format is <SearchCriteria><Criteria SearchOn="ColumnName" SearchValue="SearchString" /></SearchCriteria></returns>
-        private string ConvertContextSearchCriteriaListToGridSearchCriteria(IList<KeyValuePair<string, string>> searchCriteriaList)
-        {
-            var xmlDoc = new XmlDocument();
-            var root = xmlDoc.CreateElement("SearchCriteria");
-
-            foreach (var searchCriteria in searchCriteriaList)
-            {
-                var xmlElement = xmlDoc.CreateElement("Criteria");
-                xmlElement.SetAttribute("SearchOn", searchCriteria.Key);
-                xmlElement.SetAttribute("SearchValue", searchCriteria.Value);
-                root.AppendChild(xmlElement);
-            }
-
-            xmlDoc.AppendChild(root);
-
-            return xmlDoc.InnerXml;
-        }
-
         #endregion Private Methods
 
         #region Public Methods
@@ -296,26 +270,6 @@ namespace CashCow.Grid.Helper
             gridModel.GridBodyModel = this.BuildGridBodyModel(gridModelBuilderEntity, dataSource);
 
             return gridModel;
-        }
-
-        /// <summary>
-        /// Method to create GridSearchCriteriaEntity from grid context.
-        /// </summary>
-        /// <param name="gridContext">Grid context of the grid.</param>
-        /// <returns>GridSearchCriteriaEntity</returns>
-        public GridSearchCriteriaEntity CreateGridSearchCriteriaEntity(GridContext gridContext)
-        {
-            return new GridSearchCriteriaEntity
-                       {
-                           MaximumRows = gridContext.GridPager.PageSize,
-                           SearchAgainst = gridContext.SearchInfo.SearchAgainstCriteria,
-                           SearchCriteria = this.ConvertContextSearchCriteriaListToGridSearchCriteria(gridContext.SearchInfo.SearchCriteriaList),
-                           SearchWithOr = gridContext.SearchInfo.SearchWithOr,
-                           SortAscending = gridContext.SortInfo.SortAscending,
-                           SortColumn = gridContext.SortInfo.SortOn,
-                           StartRowIndex = gridContext.GridPager.StartRowIndex,
-                           TextSearchKey = gridContext.SearchInfo.TextSearchKey
-                       };
         }
 
         #endregion Public Methods

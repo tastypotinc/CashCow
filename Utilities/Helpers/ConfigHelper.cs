@@ -26,6 +26,17 @@ namespace Helpers
         }
 
         /// <summary>
+        /// DateTime format used across application for conversion to string. Read-only.
+        /// </summary>
+        public static string DateTimeFormatForString
+        {
+            get
+            {
+                return string.Format("{{0:{0}}}", DateTimeFormat);
+            }
+        }
+
+        /// <summary>
         /// Default grid action name. Read-only.
         /// </summary>
         public static string DefaultGridAction

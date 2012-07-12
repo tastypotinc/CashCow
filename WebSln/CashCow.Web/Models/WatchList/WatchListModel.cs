@@ -1,6 +1,7 @@
 ﻿#region Namespaces
 
 using System;
+using System.Globalization;
 using CashCow.Entity;
 using CashCow.Web.MvcHelpers;
 using Helpers;
@@ -135,10 +136,10 @@ namespace CashCow.Web.Models.WatchList
                 AltNameTwo = watchListModel.AltNameTwo,
                 BseSymbol = watchListModel.BseSymbol,
                 CreatedOn = !string.IsNullOrEmpty(watchListModel.CreatedOn) ?
-                    DataFormatter.GetDateTimeInUtcFormat(Convert.ToDateTime(watchListModel.CreatedOn)) : null,
+                    DataFormatter.GetDateTimeInUtcFormat(DataFormatter.FormatStringToDate(watchListModel.CreatedOn)) : null,
                 IsActive = watchListModel.IsActive,
                 ModifiedOn = !string.IsNullOrEmpty(watchListModel.ModifiedOn) ?
-                    DataFormatter.GetDateTimeInUtcFormat(Convert.ToDateTime(watchListModel.ModifiedOn)) : null,
+                    DataFormatter.GetDateTimeInUtcFormat(DataFormatter.FormatStringToDate(watchListModel.ModifiedOn)) : null,
                 Name = watchListModel.Name,
                 NseSymbol = watchListModel.NseSymbol,
                 TempName = watchListModel.TempName,

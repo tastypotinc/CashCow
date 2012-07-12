@@ -63,10 +63,6 @@
     <Folder Include="Views\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\EntitySln\CashCow.Entity\CashCow.Entity.csproj">
-      <Project>{02AC39C8-7B40-4774-9DE6-C937619FC53E}</Project>
-      <Name>CashCow.Entity</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Utilities\Helpers\Helpers.csproj">
       <Project>{5E4AC86B-88BA-4F00-B26D-C96E28089131}</Project>
       <Name>Helpers</Name>

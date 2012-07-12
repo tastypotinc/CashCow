@@ -1,6 +1,7 @@
 ﻿#region Namespaces
 
 using System;
+using System.Globalization;
 using System.Web.Script.Serialization;
 
 #endregion Namespaces
@@ -21,7 +22,25 @@ namespace Helpers
         /// <returns>Formatted date in form of string.</returns>
         public static string FormatDateToString(DateTime? dateToFormat)
         {
-            return (dateToFormat != null) ? string.Format(ConfigHelper.DateTimeFormat, dateToFormat) : null;
+            return (dateToFormat != null) ? string.Format(ConfigHelper.DateTimeFormatForString, dateToFormat) : null;
+        }
+
+        /// <summary>
+        /// Method to format string to DateTime object.
+        /// </summary>
+        /// <param name="stringDateToFormat">String to be converted to DateTime.</param>
+        /// <returns>DateTime converted from string.</returns>
+        public static DateTime? FormatStringToDate(string stringDateToFormat)
+        {
+            DateTime? dateTime = null;
+ 
+            if (stringDateToFormat != null)
+            {
+                dateTime = DateTime.ParseExact(stringDateToFormat, ConfigHelper.DateTimeFormat,
+                                               CultureInfo.CurrentCulture);
+            }
+
+            return dateTime;
         }
 
         /// <summary>
@@ -31,15 +50,11 @@ namespace Helpers
         /// <returns>DateTime in format defined in configuration file.</returns>
         public static DateTime? GetDateTimeInLocalFormat(DateTime? dateTimeToConvert)
         {
-            DateTime? localTime;
+            DateTime? localTime = null;
 
             if (dateTimeToConvert != null)
             {
                 localTime = TimeZone.CurrentTimeZone.ToLocalTime(dateTimeToConvert.Value);
-            }
-            else
-            {
-                localTime = null;
             }
 
             return localTime;
@@ -52,15 +67,11 @@ namespace Helpers
         /// <returns>DateTime in UTC format.</returns>
         public static DateTime? GetDateTimeInUtcFormat(DateTime? dateTimeToConvert)
         {
-            DateTime? utcTime;
+            DateTime? utcTime = null;
 
             if(dateTimeToConvert != null)
             {
                 utcTime = dateTimeToConvert.Value.ToUniversalTime();
-            }
-            else
-            {
-                utcTime = null;
             }
 
             return utcTime;

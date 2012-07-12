@@ -44,22 +44,34 @@ namespace CashCow.Web.Models.WatchList
         public string BseSymbol { get; set; }
 
         /// <summary>
-        /// WatchList item creation date.
+        /// WatchList item creation end date.
         /// </summary>
-        [CcDisplayName("Created On")]
-        public string CreatedOn { get; set; }
+        [CcDisplayName("To")]
+        public string CreatedOnEnd { get; set; }
+
+        /// <summary>
+        /// WatchList item creation start date.
+        /// </summary>
+        [CcDisplayName("Created On: From")]
+        public string CreatedOnStart { get; set; }
 
         /// <summary>
         /// WatchList item status flag.
         /// </summary>
         [CcDisplayName("Is Active")]
         public bool? IsActive { get; set; }
-        
+
         /// <summary>
-        /// WatchList item modification date.
+        /// WatchList item modification end date.
         /// </summary>
-        [CcDisplayName("Modified On")]
-        public string ModifiedOn { get; set; }
+        [CcDisplayName("To")]
+        public string ModifiedOnEnd { get; set; }
+
+        /// <summary>
+        /// WatchList item modification start date.
+        /// </summary>
+        [CcDisplayName("Modified On: From")]
+        public string ModifiedOnStart { get; set; }
 
         /// <summary>
         /// WatchList item name.

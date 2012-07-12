@@ -39,11 +39,17 @@
             <%: Html.RadioButtonFor(x => x.AlertRequired, "true")%><span>&nbsp;<%: BoolYesNo.Yes %></span>
             <%: Html.RadioButtonFor(x => x.AlertRequired, "false")%><span>&nbsp;<%: BoolYesNo.No %></span>
 
-            <%: Html.LabelFor(x => x.ModifiedOn) %>
-            <%: Html.TextBoxFor(x => x.ModifiedOn)%>
+            <%: Html.LabelFor(x => x.ModifiedOnStart) %>
+            <%: Html.TextBoxFor(x => x.ModifiedOnStart)%>
 
-            <%: Html.LabelFor(x => x.CreatedOn) %>
-            <%: Html.TextBoxFor(x => x.CreatedOn)%>
+            <%: Html.LabelFor(x => x.ModifiedOnEnd) %>
+            <%: Html.TextBoxFor(x => x.ModifiedOnEnd)%>
+
+            <%: Html.LabelFor(x => x.CreatedOnStart) %>
+            <%: Html.TextBoxFor(x => x.CreatedOnStart)%>
+
+            <%: Html.LabelFor(x => x.CreatedOnEnd) %>
+            <%: Html.TextBoxFor(x => x.CreatedOnEnd)%>
 
             <%: Html.LabelFor(x => x.SearchAgainst) %>
             <%: Html.RadioButtonFor(x => x.SearchAgainst, "true")%><span>&nbsp;<%: BoolYesNo.Yes %></span>
